@@ -1,0 +1,21 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Matkul extends Model
+{
+   
+   use softDeletes;
+
+    protected $table="tb_matkul";
+
+    protected $primerykey="id";
+
+    protected $guarded=[];
+  
+
+}
