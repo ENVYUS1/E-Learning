@@ -38,7 +38,7 @@
 						<div class="list-group-item-figure">
 							<a href="conversations.html" class="user-avatar">
 								<div class="avatar">
-									<span class="avatar-title rounded-circle border border-white">1</span>
+									<span class="avatar-title rounded-circle border border-white bg-warning">1</span>
 								</div>
 							</a>
 						</div>
@@ -61,7 +61,7 @@
 						<div class="list-group-item-figure">
 							<a href="conversations.html" class="user-avatar">
 								<div class="avatar">
-									<span class="avatar-title rounded-circle border border-white">2</span>
+									<span class="avatar-title rounded-circle border border-white bg-warning">2</span>
 								</div>
 							</a>
 						</div>
@@ -100,7 +100,7 @@
 						<div class="list-group-item-figure">
 							<a href="conversations.html" class="user-avatar">
 								<div class="avatar">
-									<span class="avatar-title rounded-circle border border-white">{{$i}}</span>
+									<span class="avatar-title rounded-circle border border-white bg-warning">{{$i}}</span>
 								</div>
 							</a>
 						</div>

@@ -35,17 +35,15 @@ class PenggunaController extends Controller
      */
     public function create()
     {   
-
-       
-     return Datatables::of(User::query()->whereIn('id_role',['1','2','3'])->orderBy('id','desc')->get())->addIndexColumn()->addColumn('action', function ($id){
+        return Datatables::of(User::query()->whereIn('id_role',['1','2','3'])->orderBy('id','desc')->get())->addIndexColumn()->addColumn('action', function ($id){
         return '<a href="#" class="btn btn-xs btn-primary  edit-matkul"  did="'.$id->pengguna['id'].'"><i class="fa fa-pencil"></i> Edit</a>'
-        ." ".
-        '<a href="#" class="btn btn-xs btn-danger  hapus-matkul" did="'.$id->pengguna['id'].'">Hapus</a>';
+            ." ".
+            '<a href="#" class="btn btn-xs btn-danger  hapus-matkul" did="'.$id->pengguna['id'].'">Hapus</a>';
 
-    })->addColumn('status', function($data){
-        return $data->role->role['name'];
-    })->make(true);
-}
+        })->addColumn('status', function($data){
+            return $data->role->role['name'];
+        })->make(true);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -74,46 +72,44 @@ class PenggunaController extends Controller
 
         }elseif($request->input('aksi')==1) {
 
-        //user
+            //user
 
-           $user = new User;
+            $user = new User;
 
-           $user->name =$request->nama;
+            $user->name =$request->nama;
 
-           $user->email = $request->email;
+            $user->email = $request->email;
 
-           $user->id_role = $request->role;
+            $user->id_role = $request->role;
 
-           $user->password = bcrypt('123456');
+            $user->password = bcrypt('123456');
 
-           $user->save();
+            $user->save();
 
-         //pengguna
+            //pengguna
 
-           $pengguna = new Pengguna;
+            $pengguna = new Pengguna;
 
-           $pengguna->nama = $request->nama;
+            $pengguna->nama = $request->nama;
 
-           $pengguna->no_induk = $request->nip;
+            $pengguna->no_induk = $request->nip;
 
-           $pengguna->no_tlp = $request->notlp;
+            $pengguna->no_tlp = $request->notlp;
 
-           $pengguna->email =$request->email;
+            $pengguna->email =$request->email;
 
-           $pengguna->id_user = $user->id;
+            $pengguna->id_user = $user->id;
 
-           $pengguna->save();
+            $pengguna->save();
 
-         //User role
+            //User role
 
-           $userRole          = new UserRole();
-           $userRole->role_id = $request->role;
-           $userRole->user_id = $user->id;
-           $userRole->save();
+            $userRole          = new UserRole();
+            $userRole->role_id = $request->role;
+            $userRole->user_id = $user->id;
+            $userRole->save();
 
-           exit(json_encode(array('Sukses', 'Tambah Data <b>'.$request->get('nama').'</b> berhasil ', 'success')));
-
-
+            exit(json_encode(array('Sukses', 'Tambah Data <b>'.$request->get('nama').'</b> berhasil ', 'success')));
        }
 
    }

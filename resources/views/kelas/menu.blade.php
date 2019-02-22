@@ -10,16 +10,17 @@
 			Menu 
 		</a>
 	</div>
+	 
 	<div class="aside-nav collapse" id="email-app-nav">
 		<ul class="nav">
 			<li class="{{Request::url() == 'http://127.0.0.1:8000/kelas/informasi' ? 'active':''}}">
 				<a href="/kelas/informasi">
 					<i class="flaticon-chat-2 ml-2"></i> <b>INFORMASI</b>
-					<span class="badge badge-danger float-right">!</span>
+					<span class="badge badge-danger float-right">2</span>
 				</a>
 			</li>
-			<li class="{{Request::url() == 'http://127.0.0.1:8000/kelas/materi' ? 'active':''}}">
-				<a href="/kelas/materi">
+			<li class="{{Request::url() == 'http://127.0.0.1:8000/kelas/materi/'.$id ? 'active':''}}">
+				<a href="/kelas/materi/{{$id}}">
 					<i class="flaticon-agenda ml-2"></i> <b>MATERI</b>
 					<span class="badge badge-primary float-right">20</span>
 				</a>
@@ -39,6 +40,11 @@
 			<li class="{{Request::url() == 'http://127.0.0.1:8000/kelas/tentang' ? 'active':''}}">
 				<a href="/kelas/tentang">
 					<i class="flaticon-exclamation ml-2"></i> <b>TENTANG</b>
+				</a>
+			</li>
+			<li class="{{Request::url() == 'http://127.0.0.1:8000/kelas/pengaturan' ? 'active':''}}">
+				<a href="/kelas/pengaturan">
+					<i class="flaticon-settings ml-2"></i> <b>PENGATURAN</b>
 				</a>
 			</li>
 		</ul>

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class GrubKelas extends Model
@@ -21,7 +21,7 @@ class GrubKelas extends Model
    public function GrubKelasUser()
    {
    	
-     return $this->belongsTO(User::class,'id_user','id')->withTrashed();
+     return $this->belongsTO(User::class,'id_user','id');
    }
 
      public function GrubKelasKelas()

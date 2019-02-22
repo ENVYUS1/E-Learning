@@ -8,14 +8,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Matkul extends Model
 {
-   
-   use softDeletes;
 
-    protected $table="tb_matkul";
+	use softDeletes;
 
-    protected $primerykey="id";
+	protected $table="tb_matkul";
 
-    protected $guarded=[];
-  
+	protected $primerykey="id";
+
+	protected $guarded=[];
+
+
+	public function MatkulKelas()
+	{
+		return $this->hasMany(Kelas::class,'id','id_matkul');
+	}
 
 }

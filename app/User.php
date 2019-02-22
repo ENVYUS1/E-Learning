@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     
 
-      public function role()
+    public function role()
     {
         return $this->hasOne('App\UserRole', 'user_id', 'id');
     }
@@ -73,7 +73,7 @@ class User extends Authenticatable
     {
         $userId = Auth::user()->id;
         $userRole = UserRole::where('user_id', $userId)->first();
-         if($userRole->role_id == 3)
+        if($userRole->role_id == 3)
         {
             return true;
         }
@@ -91,30 +91,40 @@ class User extends Authenticatable
         return false;
     }
 
-     public function UserForum()
-     {
-          return $this->hasMany(Forum::class,'id','id_user');
-     }
-     
-        public function UserGrubKelas()
-     {
-          return $this->hasMany(GrubKelas::class,'id','id_user');
-     }
+    public function UserForum()
+    {
+      return $this->hasMany(Forum::class,'id','id_user');
+  }
 
-          public function UserJawabEssai()
-     {
-          return $this->hasMany(JawabEssai::class,'id','id_user');
-     }
-     
-          public function UserJawabGanda()
-     {
-          return $this->hasMany(JawabEssai::class,'id','id_user');
-     }
+  public function UserGrubKelas()
+  {
+      return $this->hasMany(GrubKelas::class,'id','id_user');
+  }
 
-     public function pengguna()
-     {
-        return $this->hasOne(Pengguna::class, 'id_user', 'id');
-    }
-    
-  
+  public function UserJawabEssai()
+  {
+      return $this->hasMany(JawabEssai::class,'id','id_user');
+  }
+
+  public function UserJawabGanda()
+  {
+      return $this->hasMany(JawabEssai::class,'id','id_user');
+  }
+
+  public function UserKelas()
+  {
+      return $this->hasMany(Kelas::class,'id','id_user');
+  }
+
+  public function UserJawabKuis ()
+  {
+    return $this->hasMany(JawabKuis::class,'id','id_user');
+}
+
+public function pengguna()
+{
+    return $this->hasOne(Pengguna::class, 'id_user', 'id');
+}
+
+
 }

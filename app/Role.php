@@ -11,5 +11,5 @@ class Role extends Model
 
 	use softDeletes;
 	
-     protected $fillable = array('name','description');
+    protected $fillable = array('name','description');
 }

@@ -24,6 +24,12 @@
 					<span class="badge badge-primary float-right">10</span>
 				</a>
 			</li>
+			<li class="{{Request::url() == 'http://127.0.0.1:8000/kelas/materi' ? 'active':''}}">
+				<a href="/kelas/materi">
+					<i class="flaticon-interface-5 ml-2"></i> <b>Sampah</b>
+					<span class="badge badge-primary float-right">10</span>
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>

@@ -37,8 +37,8 @@
 							<thead>
 								<tr class="active">
 									<th width="5%">No</th>
-									<th width="70%">Nama</th>
-									<th >Action</th>
+									<th>Nama</th>
+									<th width="18%">Action</th>
 								</tr>
 							</thead>		
 							
