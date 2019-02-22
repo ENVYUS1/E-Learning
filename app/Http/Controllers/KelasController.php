@@ -177,12 +177,14 @@ class KelasController extends Controller
 
     public function materi($id)
     {
-        $kelas = DB::table('tb_kelas')
-            ->join('tb_materi', 'tb_kelas.id', '=', 'tb_materi.id_kelas')
-            ->where('Token', '=', $id)
-            ->get();
+    
+        $kelas=Kelas::where('Token',$id)->first();
 
-        return  view('kelas.materi', compact('id','kelas'));
+        $id_kelas=$kelas->id;
+       
+        $materi=Materi::where('id_kelas',$id_kelas)->get();
+
+        return  view('kelas.materi', compact('id','materi','id_kelas'));
     }
 
      public function informasi()

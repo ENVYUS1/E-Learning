@@ -103,10 +103,14 @@ $('body').delegate('.lihat-kelas', 'click',function () {
         url : '/tambah-kelas',
         method : 'POST',
         data : {json_mhskelas:id},
+        timeout : 10000,
         success:function (resp) {
             $('#nama').html(resp)
             $('#load').waitMe('hide')
             $("#modal-mhskelas").modal({backdrop:'static', keyboard : false})
+        },
+        error : function (jqXHR, exception) {
+            errorHandling(jqXHR.status, exception)
         }
     })
 })
@@ -277,6 +281,7 @@ function form_mahasiswa()
 // form materi
 function form_materi()
 {
+    $("#select-method").removeClass("d-none")
     $("#modal_tambah_materi").modal({'backdrop':'static', keyboard:false})
 }
 
@@ -296,16 +301,16 @@ $(document).on("submit", "#form-materi", function(e){
         timeout : 10000,
         success : function(resp)
         {
-            if(resp.message == 1){
+            if(resp.sts == 1){
                 list_materi(resp)
                 swal.fire(resp.message[0],resp.message[1],resp.message[2])
-            }else if(resp.message == 2){
+                $("#modal_tambah_materi").modal("hide")
+            }else if(resp.sts == 2){
                 swal.fire(resp.message[0],resp.message[1],resp.message[2])
             }else{
                 swal.fire(resp.message[0],resp.message[1],resp.message[2])
             }
             $("#load").waitMe("hide")
-            $("#modal_tambah_materi").modal("hide")
         },
         error : function (jqXHR, exception) {
             errorHandling(jqXHR.status, exception)
@@ -331,7 +336,6 @@ function list_materi(resp){
                         </a>\
                     </div>';
     }
-    console.log(resp)
 
     $(".list-group").append('<div class="list-group-item">\
                             <div class="list-group-item-figure">\
@@ -358,7 +362,7 @@ function list_materi(resp){
                                     <div class="dropdown-arrow"></div>\
                                     <div class="dropdown-menu dropdown-menu-right">\
                                         <a href="#" class="dropdown-item">Download</a>\
-                                        <a href="#modal_tambah_materi" data-toggle="modal" class="dropdown-item">Edit</a>\
+                                        <a href="#" did="'+resp.id+'" class="dropdown-item edit-materi">Edit</a>\
                                         <a href="#" data-toggle="modal" class="dropdown-item">Hapus</a>\
                                     </div>\
                                 </div>\
@@ -390,3 +394,78 @@ function frame()
         }
     });
 }
+
+// edit materi
+$("body").delegate(".edit-materi", "click", function(){
+    var id = $(this).attr("did")
+    $("#aksi").val(2)
+    $("#select-method").addClass("d-none")
+    loader('#load')
+    $.ajax({
+        url : '/show-materi',
+        method : 'POST',
+        data : {json_materi:id},
+        dataType : 'json',
+        timeout : 10000,
+        success:function (resp) {
+            $("#id_materi").val(resp.data.id)
+            $("#nama").val(resp.data.nama_materi)
+            $("#keterangan").val(resp.data.keterangan_materi)
+
+            if (resp.opsi == '3') {
+                $("#form-pilihan").html(
+                    '<div class="form-group form-show-validation row mt-1">\
+                        <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File Materi <span class="required-label">*</span></label>\
+                        <div class="col-lg-7 col-md-12 col-sm-12">\
+                            <input type="file" name="file" class="form-control" required placeholder="Masukkan Nama Materi" aria-required="true">\
+                        </div>\
+                    </div>\
+                    <div class="form-group form-show-validation row mt-1">\
+                        <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File Materi <span class="required-label">*</span></label>\
+                        <div class="col-lg-7 col-md-12 col-sm-12">\
+                            <div class="input-group">\
+                                <input type="text" class="form-control" id="file" disabled>\
+                                <div class="input-group-prepend">\
+                                    <a href="/template/assets/materi/'+resp.data.nama_file+'" target="_blank" class="btn btn-info video" style="text-decoration:none"><i class="fas fa-download"></i></a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>'
+                )
+                $("#file").val(resp.data.nama_file)
+            }
+            else if (resp.opsi == '2') {
+                $("#form-pilihan").html(
+                    ' <div class="form-group form-show-validation row mt-2">\
+                        <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Url Video <span class="required-label">*</span></label>\
+                        <div class="col-lg-7 col-md-12 col-sm-12">\
+                            <input type="text" name="url" id="url" class="form-control" required placeholder="Masukkan Link URL" aria-required="true">\
+                        </div>\
+                    </div>'
+                )
+                $("#url").val(resp.data.url)
+            }else{
+                $("#form-pilihan").html(
+                    '<div class="form-group form-show-validation row mt-1">\
+                        <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">File Materi <span class="required-label">*</span></label>\
+                        <div class="col-lg-7 col-md-12 col-sm-12">\
+                            <input type="file" name="file" class="form-control" required placeholder="Masukkan Nama Materi" aria-required="true">\
+                        </div>\
+                    </div>\
+                    <div class="form-group form-show-validation row mt-2">\
+                        <label for="name" class="col-lg-3 col-md-3 col-sm-4 mt-sm-2 text-right">Url Video <span class="required-label">*</span></label>\
+                        <div class="col-lg-7 col-md-12 col-sm-12">\
+                            <input type="text" name="url" class="form-control" required placeholder="Masukkan Link URL" aria-required="true">\
+                        </div>\
+                    </div>'
+                )
+            }
+
+            $('#load').waitMe('hide')
+            $("#modal_tambah_materi").modal({backdrop:'static', keyboard : false})
+        },
+        error : function (jqXHR, exception) {
+            errorHandling(jqXHR.status, exception)
+        }
+    })
+})

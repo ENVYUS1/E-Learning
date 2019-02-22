@@ -150,6 +150,9 @@ Route::group(['middleware' => ['guest']], function ()
 
 	Route::POST('/tambah-materi','MateriController@store');
 
+	Route::POST('/show-materi','MateriController@show');
+
+
 	//Quote
 	Route::get('/', 'QuoteController@login');
 
